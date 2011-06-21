@@ -50,25 +50,46 @@ group_name = ''    # Default=''
 # (47) 1234-5678  -> (041 47) 1234-5678
 #
 patterns = [
+
+        # NNNNNNNN -> NNNN-NNNN
+        # Add hyphen
+        ('^(\d{4})(\d{4})$', r'\1-\2'),
+
         # NNNN-NNNN -> (47) NNNN-NNNN
         # Numbers with no area code. Add the (47) prefix.
         ('^(\d{4}-\d{4})$', r'(47) \1'),
+
+        # (0AA) NNNN-NNNN -> (AA) NNNN-NNNN
+        # Remove the leading zero in malformed phone (no carrier)
+        ('^\(0(\d{2})\) (\d{4}-\d{4})$', r'(\1) \2'),
 
         # (AA) NNNN-NNNN -> (041 AA) NNNN-NNNN
         # Numbers with area code, but no carrier code (041)
         ('^\((\d{2})\) (\d{4}-\d{4})$', r'(041 \1) \2'),
 
+        ### Some useful samples you may use:
+        # 
+        # # 0800NNNNNN   -> 0800-NNN-NNN
+        # # 0800NNNNNNN  -> 0800-NNN-NNNN
+        # # 0800NNNNNNNN -> 0800-NNNN-NNNN
+        # # Format 0800 and 0300 special numbers
+        # ('^(0[38]00)(\d{3})(\d{3})$', r'\1-\2-\3'),
+        # ('^(0[38]00)(\d{3})(\d{4})$', r'\1-\2-\3'),
+        # ('^(0[38]00)(\d{4})(\d{4})$', r'\1-\2-\3'),
+        # 
         # # Change carrier, from Claro (21) to TIM (41)
         # # (021 AA) NNNN-NNNN -> (041 AA) NNNN-NNNN
         # ('^\(021 ', r'(041 '),
         # 
         # # Old numbers with 7 digits, add prefix 3
-        # # NNN-NNNN -> 3NNN-NNNN 
-        # # (AA) NNN-NNNN -> (AA) 3NNN-NNNN 
+        # # NNNNNNN  -> 3NNN-NNNN
+        # # NNN-NNNN -> 3NNN-NNNN
+        # # (AA) NNN-NNNN -> (AA) 3NNN-NNNN
+        # ('^(\d{3})(\d{4})$', r'3\1-\2'),
         # ('^(\d{3}-\d{4})$', r'3\1'),
         # ('^(\(\d{2}\)) (\d{3}-\d{4})$', r'\1 3\2'),
         # 
-        # # International numbers
+        # # International numbers (Brazil)
         # # +55AANNNNNNNN -> (041 AA) NNNN-NNNN
         # ('^\+55(\d{2})(\d{4})(\d{4})$', r'(041 \1) \2-\3'),
 ]
