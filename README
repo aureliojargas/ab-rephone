@@ -1,0 +1,21 @@
+This script performs a regex-powered batch search/replace in the phone
+numbers of your contacts in Apple's Address Book app for Mac OS X. Useful
+for adding/removing local area codes, prefixes and general formatting.
+
+See CONFIG at script headers for details and run this script in Terminal.
+
+    $ ./ab-rephone.py
+
+When running in normal mode (not dry-run), the script will ask you before
+making changes to each number, with the following options:
+
+    y    YES, make this change. This is the default action.
+    n    NO, don't make this change.
+    q    QUIT: save changes already made and quit.
+    a    ALL: make all changes without asking (be careful!)
+
+Note: Backup your contacts before anything else (File > Export...)
+
+Note: Quit Address Book before using this script to avoid conflicts.
+
+WARNING: DO NOT USE THIS SCRIPT IF YOU'RE NOT A REGEX NINJA.
