@@ -1,6 +1,11 @@
+ab-rephone.py
+by Aurelio Jargas
+-----------------------------------------------------------------------------
+
 This script performs a regex-powered batch search/replace in the phone
 numbers of your contacts in Apple's Address Book app for Mac OS X. Useful
 for adding/removing local area codes, prefixes and general formatting.
+You can scan all contacts or a specific group.
 
 See CONFIG at script headers for details and run this script in Terminal.
 
@@ -19,3 +24,94 @@ Note: Backup your contacts before anything else (File > Export...)
 Note: Quit Address Book before using this script to avoid conflicts.
 
 WARNING: DO NOT USE THIS SCRIPT IF YOU'RE NOT A REGEX NINJA.
+
+-----------------------------------------------------------------------------
+
+EXAMPLE 1:
+The Dry Run mode is ON by default.
+The default regex prefixes all phones with 041.
+Lines with the -> arrow are phones to be changed.
+=================================================
+
+$ ./ab-rephone.py
+
+The DRY RUN mode is turned ON.
+
+No changes will be made to your Address Book.
+You can safely play with this script.
+
+See the CONFIG area at the script headers.
+Now it's time to fine tune your regexes.
+When they are perfect, disable DRY RUN.
+
+Now just press ENTER to continue...
+
+Auto Elétrica Akio         (41) 3376-8838 ->   (041 41) 3376-8838   [dry-run]
+Barddal Equipamentos       (41) 3233-7097 ->   (041 41) 3233-7097   [dry-run]
+Barddal Equipamentos       (41) 3027-6797 ->   (041 41) 3027-6797   [dry-run]
+Auto Viação Catarine       (47) 3433-2195 ->   (041 47) 3433-2195   [dry-run]
+Auto Viação Catarine       (41) 4002-4700 ->   (041 41) 4002-4700   [dry-run]
+Banco Real                 (41) 3262-4683 ->   (041 41) 3262-4683   [dry-run]
+Banco Real                      4001-4000 ->   (041 47) 4001-4000   [dry-run]
+Banco Real                      4004-1199 ->   (041 47) 4004-1199   [dry-run]
+Banco Real                  0800-703-7325
+Unimed                      0800-642-2002
+NET                        (47) 4004-8844 ->   (041 47) 4004-8844   [dry-run]
+NET                                106 21
+TIM                                  *144
+TIM                                 *222#
+
+-----------------------------------------------------------------------------
+
+EXAMPLE 2:
+Now Dry Run mode is turned OFF.
+Note the prompt at the end of each line.
+Note that "Banco Real" was not changed.
+Note the saving message at the end.
+========================================
+
+$ ./ab-rephone.py
+Auto Elétrica Akio         (41) 3376-8838 ->   (041 41) 3376-8838   [Ynqa] y
+Barddal Equipamentos       (41) 3233-7097 ->   (041 41) 3233-7097   [Ynqa] y
+Barddal Equipamentos       (41) 3027-6797 ->   (041 41) 3027-6797   [Ynqa] y
+Auto Viação Catarine       (47) 3433-2195 ->   (041 47) 3433-2195   [Ynqa] y
+Auto Viação Catarine       (41) 4002-4700 ->   (041 41) 4002-4700   [Ynqa] y
+Banco Real                 (41) 3262-4683 ->   (041 41) 3262-4683   [Ynqa] n
+Banco Real                      4001-4000 ->   (041 47) 4001-4000   [Ynqa] n
+Banco Real                      4004-1199 ->   (041 47) 4004-1199   [Ynqa] n
+Banco Real                  0800-703-7325
+Unimed                      0800-642-2002
+NET                        (47) 4004-8844 ->   (041 47) 4004-8844   [Ynqa] y
+NET                                106 21
+TIM                                  *144
+TIM                                 *222#
+
+Saving changes to the Address Book database... 
+Done.
+
+-----------------------------------------------------------------------------
+
+EXAMPLE 3:
+Running again, only "Banco Real" needs changes.
+The others were already fixed.
+Now using "a" to change everything automatically.
+=================================================
+
+$ ./ab-rephone.py
+Auto Elétrica Akio     (041 41) 3376-8838
+Barddal Equipamentos   (041 41) 3233-7097
+Barddal Equipamentos   (041 41) 3027-6797
+Auto Viação Catarine   (041 47) 3433-2195
+Auto Viação Catarine   (041 41) 4002-4700
+Banco Real                 (41) 3262-4683 ->   (041 41) 3262-4683   [Ynqa] a
+Banco Real                      4001-4000 ->   (041 47) 4001-4000   YES
+Banco Real                      4004-1199 ->   (041 47) 4004-1199   YES
+Banco Real                  0800-703-7325
+Unimed                      0800-642-2002
+NET                    (041 47) 4004-8844
+NET                                106 21
+TIM                                  *144
+TIM                                 *222#
+
+Saving changes to the Address Book database... 
+Done.
