@@ -92,6 +92,10 @@ patterns = [
         # # International numbers (Brazil)
         # # +55AANNNNNNNN -> (041 AA) NNNN-NNNN
         # ('^\+55(\d{2})(\d{4})(\d{4})$', r'(041 \1) \2-\3'),
+        #
+        # # Add hyphen to the telephone number (by Michel de Almeida)
+        # # (NNN NN) NNNNNNNN -> (NNN NN) NNNN-NNNN
+        # ('^(\(\d{3} \d{2}\)) (\d{4})(\d{4})$', r'\1 \2-\3'),
 ]
 
 # DRY RUN
