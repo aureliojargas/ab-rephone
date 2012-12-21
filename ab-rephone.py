@@ -241,6 +241,7 @@ for person in people:
         name = " ".join([props.get('First', ''), props.get('Last', '')]).strip()
         if not name: name = props.get('Nickname')
         if not name: name = props.get('Organization')
+        if not name: name = '-empty-'
 
         # Get phones: list of [uid, phone_nr] values
         phones_record, phones = getPhones(person)
